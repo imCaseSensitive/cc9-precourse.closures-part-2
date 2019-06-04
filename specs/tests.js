@@ -13,21 +13,24 @@ describe("gameGenerator", () => {
     const bound = 4;
     const game = gameGenerator(bound);
     const number = [];
-    for (let i = 0; i < bound; i++) {
+    for (let i = 0; i <= bound; i++) {
       if (game.guess(i)) {
         number.push(i);
       }
     }
     expect(number.length).toBe(1);
+    expect(number[0]).toBe(game.giveUp());
   });
 
   it("should have a reset method", () => {
-    // How do you test for this?
-    expect(false).toBeTruthy();
+    expect(gameGenerator().reset).toBeDefined();
+    expect(typeof(gameGenerator().reset)).toBe("function");
   });
 
-  it("create your own test", () => {
-    expect(false).toBeTruthy();
+  it("giveUp method should reset the value for answer", () => {
+    const game = gameGenerator(4);
+    const previousAnswer = game.answer;
+    expect(game.giveUp()).not.toBe(game.giveUp());
   });
 });
 

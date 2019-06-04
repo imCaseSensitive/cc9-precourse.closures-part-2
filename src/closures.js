@@ -8,7 +8,44 @@ function randomInteger(n) {
   return Math.floor(Math.random() * (n + 1));
 }
 
-function gameGenerator() {}
+function gameGenerator(upperBound) {
+  let answer = randomInteger(upperBound);
+  let guessCounter = 0;
+
+  const gameDirectory = {
+    reset () {
+      let previousAnswer = answer;
+      guessCounter = 0;
+      answer = randomInteger(upperBound);
+      if (previousAnswer === answer) {
+        this.reset();
+      }
+    },
+
+    giveUp () {
+      let previousAnswer = answer;
+      this.reset();
+      return previousAnswer;
+    },
+
+    guess (guessedNumber) {
+      if (guessedNumber === answer) {
+        guessCounter += 1;
+        return true;
+      } else {
+        guessCounter += 1;
+        return false;
+      };
+    },
+
+    numGuesses () {
+      return guessCounter;
+    }
+  };
+  return gameDirectory;
+};
+
+
 
 function accountGenerator(initial) {
   let balance = initial;
