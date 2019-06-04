@@ -38,7 +38,7 @@ function gameGenerator(upperBound) {
       };
     },
 
-    numGuesses () {
+    numberGuesses () {
       return guessCounter;
     }
   };
