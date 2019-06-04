@@ -40,7 +40,12 @@ describe("accountGenerator", () => {
     expect(typeof accountGenerator).toBe("function");
   });
 
-  it("should have some tests", () => {
-    expect(false).toBeTruthy();
+  it("should a have a getBalance function", () => {
+    expect(typeof (accountGenerator().getBalance)).toBe("function");
+  });
+
+  it("getBalance should return the initial balance", () => {
+    const account = accountGenerator(100);
+    expect(account.getBalance()).toBe(100);
   });
 });

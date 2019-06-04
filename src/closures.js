@@ -51,6 +51,9 @@ function accountGenerator(initial) {
   let balance = initial;
 
   return {
+    getBalance: function() {
+      return balance;
+    },
     withdraw: function(amount) {
       if (balance - amount >= 0) {
         balance = balance - amount;
@@ -61,6 +64,9 @@ function accountGenerator(initial) {
     deposit: function(amount) {
       balance = balance + amount;
       return `Your balance is: $${balance}`;
+    },
+    transactionHistory: function() {
+
     }
   };
 }
