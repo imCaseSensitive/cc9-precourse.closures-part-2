@@ -54,13 +54,29 @@ function accountGenerator(initial) {
     getBalance: function() {
       return balance;
     },
+
     withdraw: function(amount) {
+
+      let transactionObj = {
+        type: "Withdrawal",
+        amount: amount,
+        before: balance,
+        after: balance - amount,
+        status: ""
+      };
+      
       if (balance - amount >= 0) {
         balance = balance - amount;
-        return `Here’s your money: $${amount}`;
+        this.status = "Approved";
+        console.log(`Here’s your money: $${amount}`)
+        return transactionObj;
+      } else {
+        this.status = "Denied";
+        console.log("Insufficient funds.")
+        return transactionObj;
       }
-      return "Insufficient funds.";
     },
+
     deposit: function(amount) {
       balance = balance + amount;
       return `Your balance is: $${balance}`;

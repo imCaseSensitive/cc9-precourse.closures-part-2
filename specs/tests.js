@@ -48,4 +48,9 @@ describe("accountGenerator", () => {
     const account = accountGenerator(100);
     expect(account.getBalance()).toBe(100);
   });
+
+  it("the withdraw function should return an object", () => {
+    const account = accountGenerator(100);
+    expect(typeof (account.withdraw())).toBe("object");
+  });
 });
