@@ -49,6 +49,7 @@ function gameGenerator(upperBound) {
 
 function accountGenerator(initial) {
   let balance = initial;
+  let counter = 0;
 
   return {
     getBalance: function() {
@@ -62,13 +63,17 @@ function accountGenerator(initial) {
         amount: amount,
         before: balance,
         after: balance,
+        time: '',
         status: ''
       };
       
-      if (balance - amount >= 0) {
+      if ((balance - amount) >= 0  && amount > 0) {
         withdrawalObj.after = balance - amount;
         balance = balance - amount;
         withdrawalObj.status = 'Approved';
+        counter += 1;
+        transactionHistory(withdrawalObj);
+
       } else {
         withdrawalObj.status = 'Denied';
       }
@@ -83,6 +88,7 @@ function accountGenerator(initial) {
         amount: amount,
         before: balance,
         after: balance,
+        time: '',
         status: ''
       };
 
@@ -90,6 +96,9 @@ function accountGenerator(initial) {
         depositObj.after = balance + amount;
         balance = balance + amount;
         depositObj.status = 'Approved';
+        counter += 1;
+        transactionHistory(depositObj);
+
       } else {
         depositObj.status = 'Denied';
       }
@@ -98,7 +107,9 @@ function accountGenerator(initial) {
     },
 
     transactionHistory: function() {
-
+      let history = {};
+      history[`transaction${counter}`]
+      return history;
     }
   };
 }
