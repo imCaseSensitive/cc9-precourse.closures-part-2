@@ -49,35 +49,30 @@ function gameGenerator(upperBound) {
 
 function accountGenerator(initial) {
   let balance = initial;
-  let counter = 0;
   let transactionHistoryArr = [];
 
-  return {
+  let bankingObject = {
     getBalance: function() {
       return balance;
     },
 
     withdraw: function(amount) {
-
       let withdrawalObj = {
         type: "withdrawal",
         amount: amount,
         before: balance,
-        after: balance,
+        after: balance - amount,
         time: new Date(),
         status: ''
       };
       
       if ((balance - amount) >= 0  && amount > 0) {
-        counter += 1;
-        withdrawalObj.after = balance - amount;
-        balance = balance - amount;
+        balance -= amount;
         withdrawalObj.status = 'approved';
         transactionHistoryArr.push(withdrawalObj);
       } else {
-        counter += 1;
         withdrawalObj.status = 'denied';
-        transactionHistoryArr.push(withdrawalObj);
+        // transactionHistoryArr.push(withdrawalObj);
 
       }
     
@@ -85,26 +80,22 @@ function accountGenerator(initial) {
     },
 
     deposit: function(amount) {
-
       let depositObj = {
         type: "deposit",
         amount: amount,
         before: balance,
-        after: balance,
+        after: balance + amount,
         time: new Date(),
         status: ''
       };
 
       if ((balance + amount) > balance) {
-        counter += 1;
-        depositObj.after = balance + amount;
-        balance = balance + amount;
+        balance += amount;
         depositObj.status = 'approved';
         transactionHistoryArr.push(depositObj);
       } else {
-        counter += 1;
         depositObj.status = 'denied';
-        transactionHistoryArr.push(depositObj);
+        // transactionHistoryArr.push(depositObj);
       }
           
       return depositObj;
@@ -125,12 +116,15 @@ function accountGenerator(initial) {
     //   };
 
     //   for (let i = 0; i < transactionHistoryArr.length; i++) {
-    //     if (transactionHistoryArr[i].status === 'approved') {
-    //       averages.deposit = transaction
-    //       averages.withdrawal =
+    //     if (transactionHistoryArr[i].status === 'approved' && transactionHistoryArr[i].type === "deposit") {
+    //       averages.deposit += transactionHistoryArr[i].amount;
     //     }
     //   }
+    //   averages.deposit = averages.deposit / transactionHistoryArr.length
+    //   averages.withdrawal = averages.withdrawal / transactionHistoryArr.length
+
     //   return averages;
     // }
   };
+  return bankingObject;
 };

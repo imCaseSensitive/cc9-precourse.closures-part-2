@@ -58,4 +58,8 @@ describe("accountGenerator", () => {
     const account = accountGenerator(100);
     expect(typeof (account.deposit())).toBe("object");
   });
+
+  it("should a have a transactionHistory function", () => {
+    expect(typeof (accountGenerator().transactionHistory)).toBe("function");
+  });
 });
