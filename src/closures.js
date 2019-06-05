@@ -105,11 +105,7 @@ function accountGenerator(initial) {
     },
 
     transactionHistory: function(n) {
-      let history = [];
-      for (let i = 1; i <= n; i ++) {
-          history.push(transactionHistoryArr[transactionHistoryArr.length - i]);
-      };
-      return history;
+      return transactionHistoryArr.slice(transactionHistoryArr.length - n);
     },
 
     // averageTransaction: function() {
