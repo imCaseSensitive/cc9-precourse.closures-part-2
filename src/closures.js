@@ -72,6 +72,7 @@ function accountGenerator(initial) {
         transactionHistoryArr.push(withdrawalObj);
       } else {
         withdrawalObj.status = 'denied';
+        withdrawalObj.after = balance;
         // transactionHistoryArr.push(withdrawalObj);
 
       }
@@ -95,6 +96,8 @@ function accountGenerator(initial) {
         transactionHistoryArr.push(depositObj);
       } else {
         depositObj.status = 'denied';
+        depositObj.after = balance;
+
         // transactionHistoryArr.push(depositObj);
       }
           
@@ -104,7 +107,7 @@ function accountGenerator(initial) {
     transactionHistory: function(n) {
       let history = [];
       for (let i = 1; i <= n; i ++) {
-        history.push(transactionHistoryArr[transactionHistoryArr.length - i]);
+          history.push(transactionHistoryArr[transactionHistoryArr.length - i]);
       };
       return history;
     },
