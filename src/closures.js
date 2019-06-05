@@ -58,7 +58,7 @@ function accountGenerator(initial) {
     withdraw: function(amount) {
 
       let withdrawalObj = {
-        type: "Withdrawal",
+        type: "withdrawal",
         amount: amount,
         before: balance,
         after: balance - amount,
@@ -78,7 +78,7 @@ function accountGenerator(initial) {
     deposit: function(amount) {
 
       let depositObj = {
-        type: "Deposit",
+        type: "deposit",
         amount: amount,
         before: balance,
         after: balance + amount,
@@ -86,7 +86,7 @@ function accountGenerator(initial) {
       };
       return depositObj;
     },
-    
+
     transactionHistory: function() {
 
     }
