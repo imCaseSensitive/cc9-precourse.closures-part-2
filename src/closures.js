@@ -63,7 +63,7 @@ function accountGenerator(initial) {
         amount: amount,
         before: balance,
         after: balance,
-        time: '',
+        time: new Date(),
         status: ''
       };
       
@@ -72,7 +72,6 @@ function accountGenerator(initial) {
         balance = balance - amount;
         withdrawalObj.status = 'Approved';
         counter += 1;
-        transactionHistory(withdrawalObj);
 
       } else {
         withdrawalObj.status = 'Denied';
@@ -88,7 +87,7 @@ function accountGenerator(initial) {
         amount: amount,
         before: balance,
         after: balance,
-        time: '',
+        time: new Date(),
         status: ''
       };
 
@@ -97,7 +96,6 @@ function accountGenerator(initial) {
         balance = balance + amount;
         depositObj.status = 'Approved';
         counter += 1;
-        transactionHistory(depositObj);
 
       } else {
         depositObj.status = 'Denied';
@@ -106,9 +104,10 @@ function accountGenerator(initial) {
       return depositObj;
     },
 
-    transactionHistory: function() {
+    transactionHistory: function(n) {
       let history = {};
       history[`transaction${counter}`]
+
       return history;
     }
   };
