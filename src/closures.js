@@ -50,6 +50,7 @@ function gameGenerator(upperBound) {
 function accountGenerator(initial) {
   let balance = initial;
   let counter = 0;
+  let transactionHistoryArr = [];
 
   return {
     getBalance: function() {
@@ -68,13 +69,16 @@ function accountGenerator(initial) {
       };
       
       if ((balance - amount) >= 0  && amount > 0) {
+        counter += 1;
         withdrawalObj.after = balance - amount;
         balance = balance - amount;
         withdrawalObj.status = 'approved';
-        counter += 1;
-
+        transactionHistoryArr.push(withdrawalObj);
       } else {
+        counter += 1;
         withdrawalObj.status = 'denied';
+        transactionHistoryArr.push(withdrawalObj);
+
       }
     
       return withdrawalObj;
@@ -92,23 +96,41 @@ function accountGenerator(initial) {
       };
 
       if ((balance + amount) > balance) {
+        counter += 1;
         depositObj.after = balance + amount;
         balance = balance + amount;
         depositObj.status = 'approved';
-        counter += 1;
-
+        transactionHistoryArr.push(depositObj);
       } else {
+        counter += 1;
         depositObj.status = 'denied';
+        transactionHistoryArr.push(depositObj);
       }
           
       return depositObj;
     },
 
     transactionHistory: function(n) {
-      let history = {};
-      history[`transaction${counter}`]
-
+      let history = [];
+      for (let i = 1; i <= n; i ++) {
+        history.push(transactionHistoryArr[transactionHistoryArr.length - i]);
+      };
       return history;
-    }
+    },
+
+    // averageTransaction: function() {
+    //   let averages = {
+    //     deposit: 0,
+    //     withdrawal: 0
+    //   };
+
+    //   for (let i = 0; i < transactionHistoryArr.length; i++) {
+    //     if (transactionHistoryArr[i].status === 'approved') {
+    //       averages.deposit = transaction
+    //       averages.withdrawal =
+    //     }
+    //   }
+    //   return averages;
+    // }
   };
-}
+};
