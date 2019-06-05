@@ -70,11 +70,11 @@ function accountGenerator(initial) {
       if ((balance - amount) >= 0  && amount > 0) {
         withdrawalObj.after = balance - amount;
         balance = balance - amount;
-        withdrawalObj.status = 'Approved';
+        withdrawalObj.status = 'approved';
         counter += 1;
 
       } else {
-        withdrawalObj.status = 'Denied';
+        withdrawalObj.status = 'denied';
       }
     
       return withdrawalObj;
@@ -94,11 +94,11 @@ function accountGenerator(initial) {
       if ((balance + amount) > balance) {
         depositObj.after = balance + amount;
         balance = balance + amount;
-        depositObj.status = 'Approved';
+        depositObj.status = 'approved';
         counter += 1;
 
       } else {
-        depositObj.status = 'Denied';
+        depositObj.status = 'denied';
       }
           
       return depositObj;
