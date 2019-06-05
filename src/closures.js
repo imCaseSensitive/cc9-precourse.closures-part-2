@@ -61,18 +61,19 @@ function accountGenerator(initial) {
         type: "withdrawal",
         amount: amount,
         before: balance,
-        after: balance - amount,
-        status: ""
+        after: balance,
+        status: ''
       };
       
       if (balance - amount >= 0) {
+        withdrawalObj.after = balance - amount;
         balance = balance - amount;
-        this.status = "Approved";
-        return withdrawalObj;
+        withdrawalObj.status = 'Approved';
       } else {
-        this.status = "Denied";
-        return withdrawalObj;
+        withdrawalObj.status = 'Denied';
       }
+    
+      return withdrawalObj;
     },
 
     deposit: function(amount) {
@@ -81,9 +82,18 @@ function accountGenerator(initial) {
         type: "deposit",
         amount: amount,
         before: balance,
-        after: balance + amount,
-        status: ""
+        after: balance,
+        status: ''
       };
+
+      if ((balance + amount) > balance) {
+        depositObj.after = balance + amount;
+        balance = balance + amount;
+        depositObj.status = 'Approved';
+      } else {
+        depositObj.status = 'Denied';
+      }
+          
       return depositObj;
     },
 
