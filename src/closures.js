@@ -50,6 +50,8 @@ function gameGenerator(upperBound) {
 function accountGenerator(initial) {
   let balance = initial;
   let transactionHistoryArr = [];
+  let withdrawals = [0, 0];
+  let deposits = [0, 0];
 
   let bankingObject = {
     getBalance: function() {
@@ -67,6 +69,8 @@ function accountGenerator(initial) {
       };
       
       if ((balance - amount) >= 0  && amount > 0) {
+        withdrawals[0] += amount;
+        withdrawals[1] += 1;
         balance -= amount;
         withdrawalObj.status = 'approved';
         transactionHistoryArr.push(withdrawalObj);
@@ -91,6 +95,8 @@ function accountGenerator(initial) {
       };
 
       if ((balance + amount) > balance) {
+        deposits[0] += amount;
+        deposits[1] += 1;
         balance += amount;
         depositObj.status = 'approved';
         transactionHistoryArr.push(depositObj);
@@ -108,22 +114,13 @@ function accountGenerator(initial) {
       return transactionHistoryArr.slice(transactionHistoryArr.length - n);
     },
 
-    // averageTransaction: function() {
-    //   let averages = {
-    //     deposit: 0,
-    //     withdrawal: 0
-    //   };
-
-    //   for (let i = 0; i < transactionHistoryArr.length; i++) {
-    //     if (transactionHistoryArr[i].status === 'approved' && transactionHistoryArr[i].type === "deposit") {
-    //       averages.deposit += transactionHistoryArr[i].amount;
-    //     }
-    //   }
-    //   averages.deposit = averages.deposit / transactionHistoryArr.length
-    //   averages.withdrawal = averages.withdrawal / transactionHistoryArr.length
-
-    //   return averages;
-    // }
+    averageTransaction: function() {
+      let averages = {
+        deposit: deposits[0] / deposits[1],
+        withdrawal: withdrawals[0] / withdrawals[1]
+      };
+      return averages;
+    }
   };
   return bankingObject;
 };
